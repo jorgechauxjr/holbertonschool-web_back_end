@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #  synchronous version ======================
 # countsync.py
+# https://realpython.com/async-io-python/
 
 import time
 
