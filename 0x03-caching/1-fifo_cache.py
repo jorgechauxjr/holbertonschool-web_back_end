@@ -33,6 +33,7 @@ class FIFOCache(BaseCaching):
             print("DISCARD: {}".format(to_discard))
             del self.cache_data[to_discard]
 
+        self.all_keys.append(key)
         self.cache_data[key] = item
 
     def get(self, key):
