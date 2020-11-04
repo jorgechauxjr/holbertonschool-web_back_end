@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
+"""3. Connect to secure database"""
 from typing import List
 import re
 import logging
 import os
 import mysql.connector
-"""3. Connect to secure database"""
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
