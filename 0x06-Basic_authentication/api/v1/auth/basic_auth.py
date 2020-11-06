@@ -86,3 +86,16 @@ class BasicAuth(Auth):
         if not valid_psw:
             return None
         return user_info[0]
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """overloads Auth and retrieves the User instance for a request
+        """
+        try:
+            header = self.authorization_header(request)
+            base64 = self.extract_base64_authorization_header(header)
+            decoded = self.decode_base64_authorization_header(base64)
+            cred = self.extract_user_credentials(decoded)
+            user = self.user_object_from_credentials(cred[0], cred[1])
+            return user
+        except Exception:
+            return None
