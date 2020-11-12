@@ -45,3 +45,16 @@ def sessionLogin() -> str:
     response.set_cookie(SESSION_NAME, session_id)
 
     return response
+
+def logout() -> str:
+    """ DELETE /auth_session/logout
+    Return: Empty dictionary if succesful
+    """
+    from api.v1.app import auth
+
+    deleted = auth.destroy_session(request)
+
+    if not deleted:
+        abort(404)
+
+    return jsonify({}), 200
