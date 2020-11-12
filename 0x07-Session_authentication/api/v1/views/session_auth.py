@@ -46,6 +46,7 @@ def sessionLogin() -> str:
 
     return response
 
+
 def logout() -> str:
     """ DELETE /auth_session/logout
     Return: Empty dictionary if succesful
