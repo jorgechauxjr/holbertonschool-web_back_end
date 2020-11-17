@@ -45,3 +45,21 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """takes in arbitrary keyword arguments and
+        returns the first row found in the users table
+        """
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if not user:
+            raise NoResultFound
+        return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """takes in arbitrary keyword arguments and
+        returns the first row found in the users table
+        """
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if not user:
+            raise NoResultFound
+        return user
