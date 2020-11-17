@@ -52,3 +52,8 @@ class Auth:
                 return bcrypt.checkpw(password.encode('utf-8'), passwhash)
         except NoResultFound:
             return False
+
+    def _generate_uuid() -> str:
+    """Returns a string representation of a new UUID.
+    """
+    return str(uuid.uuid1())
