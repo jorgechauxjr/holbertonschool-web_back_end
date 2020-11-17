@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+"""
+Module auth
+"""
+import bcrypt
+
+
+def _hash_password(password: str) -> str:
+    """takes in a password string arguments and returns a string.
+    The string is a salted hash of the input password,
+    hashed with bcrypt.hashpw.
+    """
+    return bcrypt.hashpw(bytes(password, 'utf-8'), bcrypt.gensalt())
