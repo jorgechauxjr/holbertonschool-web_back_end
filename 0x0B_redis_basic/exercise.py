@@ -9,6 +9,7 @@ import uuid
 def count_calls(method: Callable) -> Callable:
     """count how many times methods of the Cache class are called"""
     key = method.__qualname__
+
     @wraps(method)
     def wrapper(self, *args, **kwds):
         """wrapper func"""
@@ -22,6 +23,7 @@ def call_history(method: Callable) -> Callable:
     key = method.__qualname__
     inputs = key + ":inputs"
     outputs = key + ":outputs"
+
     @wraps(method)
     def wrapper(self, *args, **kwds):
         """wrapper func"""
