@@ -1,9 +1,8 @@
 const fs = require('fs');
 
 function countStudents(path) {
-  
   if (!fs.existsSync(path)) throw Error('Cannot load the database'); // validate if  file exist
-  
+
   try {
     const inFields = {}; // {field: {counter: # of students, students: [list of students in field]}}
     const content = fs.readFileSync(path, 'utf-8').split('\n');
