@@ -5,12 +5,12 @@ function countStudents(path) {
   const inFields = {}; // {field: {counter: # of students, students: [list of students in field]}}
 
   try {
-    content = fs.readFileSync(path);
+    content = fs.readFileSync(path, 'utf-8').split('\n');
   } catch (err) {
     throw new Error('Cannot load the database');
   }
   try {
-    content = content.toString().split('\n');
+    // content = content.toString().split('\n');
 
     for (let i = 1; i < content.length; i += 1) {
       const line = content[i].split(','); // get each word
