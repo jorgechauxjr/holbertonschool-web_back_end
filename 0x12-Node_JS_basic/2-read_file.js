@@ -1,16 +1,12 @@
 const fs = require('fs');
 
 function countStudents(path) {
-  let content;
-  const inFields = {}; // {field: {counter: # of students, students: [list of students in field]}}
-
+  
+  if (!fs.existsSync(path)) throw Error('Cannot load the database'); // validate if  file exist
+  
   try {
-    content = fs.readFileSync(path, 'utf-8').split('\n');
-  } catch (err) {
-    throw new Error('Cannot load the database');
-  }
-  try {
-    // content = content.toString().split('\n');
+    const inFields = {}; // {field: {counter: # of students, students: [list of students in field]}}
+    const content = fs.readFileSync(path, 'utf-8').split('\n');
 
     for (let i = 1; i < content.length; i += 1) {
       const line = content[i].split(','); // get each word
@@ -27,8 +23,6 @@ function countStudents(path) {
         console.log(`Number of students in ${key}: ${inFields[key].counter}. List: ${inFields[key].students}`);
       }
     }
-    // console.log(content);
-    // console.log("Size: " + content.length);
   } catch (e) {
     throw Error(e);
   }
