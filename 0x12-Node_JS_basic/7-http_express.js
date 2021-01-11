@@ -30,7 +30,7 @@ const countStudents = async (path) => {
     }
     return dataShow;
   } catch (err) {
-    throw new Error(err);
+    throw new Error('Cannot load the database');
   }
 };
 const app = express();
