@@ -1,35 +1,36 @@
 const fs = require('fs');
 
-module.exports = function countStudents(path) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, { encoding: 'utf-8' }, (err, data) => {
-      try {
-        if (err) reject(Error('Cannot load the database'));
-        const totalData = data.split('\n').filter((line) => line).slice(1);
+const countStudents = (path) => new Promise((resolve, reject) => {
+  fs.readFile(path, (error, csvData) => {
+    if (error) {
+      reject(Error('Cannot load the database'));
+    }
+    if (csvData) {
+      const fields = {};
+      let data = csvData.toString().split('\n');
+      data = data.filter((element) => element.length > 0);
+      data.shift();
 
-        console.log(`Number of students: ${totalData.length}`);
-
-        let csCount = 0;
-        let csStudents = '';
-
-        let sweCount = 0;
-        let sweStudents = '';
-
-        totalData.forEach((student) => {
-          const info = student.split(',');
-          if (info[3] === 'CS') {
-            csCount += 1;
-            csStudents += csStudents ? `, ${info[0]}` : info[0];
-          } else if (info[3] === 'SWE') {
-            sweCount += 1;
-            sweStudents += sweStudents ? `, ${info[0]}` : info[0];
+      data.forEach((element) => {
+        if (element.length > 0) {
+          const row = element.split(',');
+          if (row[3] in fields) {
+            fields[row[3]].push(row[0]);
+          } else {
+            fields[row[3]] = [row[0]];
           }
-        });
-
-        console.log(`Number of students in CS: ${csCount}. List: ${csStudents}`);
-        console.log(`Number of students in SWE: ${sweCount}. List: ${sweStudents}`);
-        return resolve();
-      } catch (err) { return reject(Error('Cannot load the database')); }
-    });
+        }
+      });
+      console.log(`Number of students: ${data.length}`);
+      for (const field in fields) {
+        if (field) {
+          const list = fields[field];
+          console.log(`Number of students in ${field}: ${list.length}. List: ${list.toString().replace(/,/g, ', ')}`);
+        }
+      }
+    }
+    resolve();
   });
-};
+});
+
+module.exports = countStudents;
